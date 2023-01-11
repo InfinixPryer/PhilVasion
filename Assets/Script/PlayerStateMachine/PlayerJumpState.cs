@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : CharacterBaseState
+public class PlayerJumpState : PlayerBaseState
 {
     
 
     private float timer = 0;
 
-    public PlayerJumpState(PlayerStateMachine currentCtx, CharacterStateFactory playerStateFactory) : base (currentCtx, playerStateFactory){
+    public PlayerJumpState(PlayerStateMachine currentCtx, PlayerStateFactory playerStateFactory) : base (currentCtx, playerStateFactory){
         IsRootState = true;
     }
     
@@ -38,7 +38,6 @@ public class PlayerJumpState : CharacterBaseState
             Ctx.Rb.velocity = new Vector2 ( Ctx.Rb.velocity.x, 0);
             Ctx.IsJumping = false;
         }
-        
     }
 
     void JumpRoutine()

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public enum CharacterStatesEnum {
+public enum PlayerStatesEnum {
     Walk,
     Idle,
     Move,
@@ -12,43 +12,42 @@ public enum CharacterStatesEnum {
     Fall,
 }
 
-public class CharacterStateFactory
+public class PlayerStateFactory
 {
     PlayerStateMachine context;
 
-    Dictionary<CharacterStatesEnum, CharacterBaseState> playerStates = new Dictionary<CharacterStatesEnum, CharacterBaseState>();
-    // Dictionary<string, PlayerBaseState>
+    Dictionary<PlayerStatesEnum, PlayerBaseState> playerStates = new Dictionary<PlayerStatesEnum, PlayerBaseState>();
 
-    public CharacterStateFactory(PlayerStateMachine currentContext){
+    public PlayerStateFactory(PlayerStateMachine currentContext){
         context = currentContext;
     }
 
-    public CharacterBaseState Grounded(){
-        return GetInstance<PlayerGroundedState>(CharacterStatesEnum.Grounded);
+    public PlayerBaseState Grounded(){
+        return GetInstance<PlayerGroundedState>(PlayerStatesEnum.Grounded);
     }
 
-    public CharacterBaseState Idle(){
-        return GetInstance<PlayerIdleState>(CharacterStatesEnum.Idle);
+    public PlayerBaseState Idle(){
+        return GetInstance<PlayerIdleState>(PlayerStatesEnum.Idle);
     }
     
-    public CharacterBaseState Jump(){
-        return GetInstance<PlayerJumpState>(CharacterStatesEnum.Jump);
+    public PlayerBaseState Jump(){
+        return GetInstance<PlayerJumpState>(PlayerStatesEnum.Jump);
     }
 
-    public CharacterBaseState Move(){
-        return GetInstance<PlayerMoveState>(CharacterStatesEnum.Move);
+    public PlayerBaseState Move(){
+        return GetInstance<PlayerMoveState>(PlayerStatesEnum.Move);
     }
 
-    public CharacterBaseState Fall() {
-        return GetInstance<PlayerFallState>(CharacterStatesEnum.Fall);
+    public PlayerBaseState Fall() {
+        return GetInstance<PlayerFallState>(PlayerStatesEnum.Fall);
     }
 
-    public CharacterBaseState Climb() {
-        return GetInstance<PlayerClimbState>(CharacterStatesEnum.Climb);
+    public PlayerBaseState Climb() {
+        return GetInstance<PlayerClimbState>(PlayerStatesEnum.Climb);
     }
-    private CharacterBaseState GetInstance<T>(CharacterStatesEnum key) where T: CharacterBaseState {
+    private PlayerBaseState GetInstance<T>(PlayerStatesEnum key) where T: PlayerBaseState {
         if (!playerStates.ContainsKey(key)) {
-            playerStates.Add(key, Activator.CreateInstance(typeof(T), new object[] { context, this }) as CharacterBaseState);
+            playerStates.Add(key, Activator.CreateInstance(typeof(T), new object[] { context, this }) as PlayerBaseState);
         }
         return playerStates[key];
     }

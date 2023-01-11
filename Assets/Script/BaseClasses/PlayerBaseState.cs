@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterBaseState
+public abstract class PlayerBaseState
 {
     private bool isRootState = false;
     private PlayerStateMachine baseCtx;
-    private CharacterStateFactory baseFactory;
-    private CharacterBaseState currentSubState;
-    private CharacterBaseState currentSuperState;
+    private PlayerStateFactory baseFactory;
+    private PlayerBaseState currentSubState;
+    private PlayerBaseState currentSuperState;
 
     protected bool IsRootState {set { isRootState = value;} }
     protected PlayerStateMachine Ctx {get { return baseCtx;} }
-    protected CharacterStateFactory Factory {get { return baseFactory; } }
+    protected PlayerStateFactory Factory {get { return baseFactory; } }
 
-    public CharacterBaseState(PlayerStateMachine currentCtx, CharacterStateFactory characterStateFactory){
+    public PlayerBaseState(PlayerStateMachine currentCtx, PlayerStateFactory characterStateFactory){
         baseCtx = currentCtx;
         baseFactory = characterStateFactory;
     }
@@ -40,7 +40,7 @@ public abstract class CharacterBaseState
         }
     }
 
-    protected void SwitchState(CharacterBaseState newState){
+    protected void SwitchState(PlayerBaseState newState){
         //current state exits
         ExitState();
 
@@ -57,11 +57,11 @@ public abstract class CharacterBaseState
         }
     }
 
-    protected void SetSuperState(CharacterBaseState newSuperState){
+    protected void SetSuperState(PlayerBaseState newSuperState){
         currentSuperState = newSuperState;
     }
     
-    protected void SetSubState(CharacterBaseState newSubState){
+    protected void SetSubState(PlayerBaseState newSubState){
         currentSubState = newSubState;
         newSubState.SetSuperState(this);
     }

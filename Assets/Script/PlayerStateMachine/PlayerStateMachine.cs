@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerStateMachine : MonoBehaviour
 {
     // GETTERS AND SETTERS
-    public CharacterBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public bool IsMovePressed { get { return isMovePressed; } set { isMovePressed = value; } }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public Vector2 MovementInput { get { return movementInput; } }
@@ -29,8 +29,8 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsOnLadder { get { return isOnLadder; } set { isOnLadder = value; } }
 
 
-    CharacterBaseState currentState;
-    CharacterStateFactory states;
+    PlayerBaseState currentState;
+    PlayerStateFactory states;
 
     Rigidbody2D rb;
     Animator anim;
@@ -74,7 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool isOnLadder = false;
 
     void Awake() {
-        states = new CharacterStateFactory(this);
+        states = new PlayerStateFactory(this);
         currentState = states.Grounded();
         currentState.EnterState();
 

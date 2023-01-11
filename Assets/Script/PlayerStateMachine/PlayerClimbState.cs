@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerClimbState : CharacterBaseState
+public class PlayerClimbState : PlayerBaseState
 {
     
-    public PlayerClimbState(PlayerStateMachine currentCtx, CharacterStateFactory playerStateFactory) : base (currentCtx, playerStateFactory){
+    public PlayerClimbState(PlayerStateMachine currentCtx, PlayerStateFactory playerStateFactory) : base (currentCtx, playerStateFactory){
         IsRootState = true;
-        InitializeSubState();
+        
     }
     
     public override void EnterState()
     {
+        InitializeSubState();
         Ctx.IsOnLadder = true;
         Ctx.Rb.velocity = Vector2.zero;
         Debug.Log("CLIMB");

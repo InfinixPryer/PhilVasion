@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState : CharacterBaseState
+public class PlayerMoveState : PlayerBaseState
 {
     float moveTimer = 0;
-    public PlayerMoveState(PlayerStateMachine currentCtx, CharacterStateFactory playerStateFactory) : base (currentCtx, playerStateFactory){
+    public PlayerMoveState(PlayerStateMachine currentCtx, PlayerStateFactory playerStateFactory) : base (currentCtx, playerStateFactory){
 
     }
     
