@@ -10,10 +10,12 @@ public class SpanishTestScript : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float moveSpeed;
     bool isFacingRight = true;
-    bool isEdgePresent;
+    [SerializeField] bool isEdgePresent;
     [SerializeField] float edgeDetectLength;
     [SerializeField] float edgeDetectOffSet;
     Vector2 direction = Vector2.right;
+    [SerializeField] float waitTime;
+    [SerializeField] float waitTimer;
     
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayerMask;
@@ -55,6 +57,7 @@ public class SpanishTestScript : MonoBehaviour
         Debug.DrawRay(new Vector2 (transform.position.x + edgeDetectOffSet, transform.position.y), Vector3.down * edgeDetectLength, Color.red);
         
         Patrol();
+        Follow();
     }
 
     void Patrol() {
@@ -64,10 +67,24 @@ public class SpanishTestScript : MonoBehaviour
             rb.AddForce(direction * moveSpeed);
             rb.velocity = new Vector2 ( Mathf.Clamp(rb.velocity.x, -moveSpeed, moveSpeed), rb.velocity.y);
         }
-        if (!isEdgePresent && rb.velocity.y == 0)
+        if (!isEdgePresent && (rb.velocity.y <= 0.1 && rb.velocity.y >= -0.1))
         {
-            Flip();
+            //Wait a few seconds then flip
+            if(waitTimer <= waitTime) {
+                waitTimer += Time.fixedDeltaTime;
+                rb.velocity = Vector2.zero;
+                animator.SetBool("isPatrolling", false);
+            } else {
+                waitTimer = 0;
+                Flip();
+            }         
         }
+    }
+
+    
+
+    void Follow() {
+        
     }
 
     public void Flip()
