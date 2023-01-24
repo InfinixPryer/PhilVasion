@@ -13,8 +13,7 @@ public class PlayerFallState : PlayerBaseState
         InitializeSubState();
         Debug.Log("FALL");
         Ctx.Anim.SetBool("isFalling", true);
-        // Ctx.Rb.velocity = new Vector2 ( Ctx.Rb.velocity.x , -Ctx.FallGravity);
-        
+        Ctx.Rb.gravityScale = Ctx.Rb.gravityScale * Ctx.FallGravity;
     }
 
     public override void UpdateState()
@@ -25,7 +24,7 @@ public class PlayerFallState : PlayerBaseState
 
     public override void FixedUpdateState()
     {
-        Ctx.Rb.AddForce(Vector2.down * Ctx.FallGravity);
+        // Ctx.Rb.AddForce(Vector2.down * Ctx.FallGravity);
     }
 
     public override void ExitState(){
@@ -38,6 +37,7 @@ public class PlayerFallState : PlayerBaseState
         {
             SwitchState(Factory.Grounded());
             Ctx.Rb.velocity = new Vector2 ( Ctx.Rb.velocity.x, 0f);
+            Ctx.Rb.gravityScale = Ctx.GravityScale;
         }
         else if ( Ctx.IsLadderPresent && Ctx.IsClimbPressed)
         {

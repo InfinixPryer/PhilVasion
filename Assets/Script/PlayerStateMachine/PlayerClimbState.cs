@@ -17,6 +17,8 @@ public class PlayerClimbState : PlayerBaseState
         Ctx.Rb.velocity = Vector2.zero;
         Debug.Log("CLIMB");
         Ctx.Anim.SetBool("isClimbing", true);
+        Ctx.Anim.SetBool("isMoving", false);
+        Ctx.Rb.gravityScale = Ctx.GravityScale;
     }
 
     public override void UpdateState()

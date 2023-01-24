@@ -492,7 +492,9 @@ MonoBehaviour:
   moveSpeed: 20
   acceleration: 0
   deceleration: 0
+  velPower: 0
   fallGravity: 0
+  gravityScale: 0
   initialJumpForce: 0
   jumpForce: 12
   jumpTime: 0
@@ -538,23 +540,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: 
-  moveSpeed: 20
-  acceleration: 0
-  deceleration: 0
-  fallGravity: 55
-  initialJumpForce: 0.5
-  jumpForce: 15
+  moveSpeed: 9
+  acceleration: 9
+  deceleration: 9
+  velPower: 1.2
+  fallGravity: 2
+  gravityScale: 1
+  initialJumpForce: 15
+  jumpForce: 20
   jumpTime: 0.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   isGrounded: 0
-  groundRayDistance: 0.5
+  groundRayDistance: 0.15
   ladderLayerMask:
     serializedVersion: 2
     m_Bits: 128
   ladderDetectRadius: 0.3
-  climbForce: 30
+  climbForce: 60
 --- !u!4 &901955660
 Transform:
   m_ObjectHideFlags: 0
@@ -563,7 +567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901955658}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.89, y: -2.04, z: 0}
+  m_LocalPosition: {x: -6.96, y: -2.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

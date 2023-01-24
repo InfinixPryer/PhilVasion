@@ -35,12 +35,11 @@ public class PlayerMoveState : PlayerBaseState
         }
         
         float targetSpeed = Ctx.MovementInput.x * Ctx.MoveSpeed; // calculate movement direction and speed
-        float speedDif = targetSpeed - Ctx.Rb.velocity.x; //Check if difference of target speed and current speed
-        float accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f ? Ctx.Acceleration : Ctx.Deceleration ); //change between acceleration
+        float speedDif = targetSpeed - Ctx.Rb.velocity.x; //Difference of target speed and current speed
+        float accelerationRate = ( Mathf.Abs(targetSpeed) > 0.01f ? Ctx.Acceleration : Ctx.Deceleration ); //change between acceleration and deceleration based on target speed
         float movement = Mathf.Pow( Mathf.Abs(speedDif) * accelerationRate, Ctx.VelPower) * Mathf.Sign(speedDif);
 
         Ctx.Rb.AddForce(movement * Vector2.right);
-        
     }
 
     public override void ExitState(){
@@ -52,7 +51,7 @@ public class PlayerMoveState : PlayerBaseState
         if(!Ctx.IsMovePressed & moveTimer >= Ctx.SecondsTilIdle)
         {
             SwitchState(Factory.Idle());
-            // Ctx.Rb.velocity = Vector2.zero;
+            Ctx.Rb.velocity = new Vector2 ( 0, Ctx.Rb.velocity.y);
         }
     }
 

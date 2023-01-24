@@ -27,6 +27,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float SecondsTilIdle { get { return secondsTilIdle;} set { secondsTilIdle = value; } }
     public bool IsMoving { get { return isMoving; } set { isMoving = value; } }
     public float FallGravity { get { return fallGravity; } set { fallGravity = value;} }
+    public float GravityScale { get { return gravityScale; } set { gravityScale = value; } }
     public bool IsLadderPresent { get { return isLadderPresent; } set { isLadderPresent = value; } }
     public bool IsClimbPressed { get { return isClimbPressed; } set { isClimbPressed = value; } }
     public float ClimbForce { get { return climbForce; } set { climbForce = value; } }
@@ -60,7 +61,8 @@ public class PlayerStateMachine : MonoBehaviour
     bool isFalling;
     
     //GRAVITY Variables
-    float gravity;
+    [Header("Gravity")]
+    [SerializeField] float gravityScale;
     float groundedGravity;
     
 
