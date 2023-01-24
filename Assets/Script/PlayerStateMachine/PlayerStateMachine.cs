@@ -10,6 +10,10 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsMovePressed { get { return isMovePressed; } set { isMovePressed = value; } }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public Vector2 MovementInput { get { return movementInput; } }
+    public Vector2 MoveDirX { get { return moveDirX;} set { value = moveDirX; } }
+    public float Acceleration { get { return acceleration; } set {value = acceleration; } }
+    public float Deceleration { get { return deceleration; } set {value = deceleration; } }
+    public float VelPower { get { return velPower; } set { value = velPower; } }
     public Rigidbody2D Rb { get { return rb; } }
     public Animator Anim {get { return anim; } }
     public bool IsJumpPressed { get { return isJumpPressed; } set { isJumpPressed = value; } }
@@ -28,6 +32,8 @@ public class PlayerStateMachine : MonoBehaviour
     public float ClimbForce { get { return climbForce; } set { climbForce = value; } }
     public bool IsOnLadder { get { return isOnLadder; } set { isOnLadder = value; } }
 
+    [Header("STATE")]
+    [SerializeField] string stateName;
 
     PlayerBaseState currentState;
     PlayerStateFactory states;
@@ -36,41 +42,51 @@ public class PlayerStateMachine : MonoBehaviour
     Animator anim;
     InputActions inputActions;
 
-    bool isFalling;
-    bool isJumping;
-    bool isMoving;
-
-    //GRAVITY Variables
-    float gravity;
-    float groundedGravity;
-    [SerializeField] float fallGravity;
-
     //MOVEMENT Variables
+    [Header("Movement")]
+    [SerializeField] float moveSpeed;
+    [SerializeField] float acceleration;
+    [SerializeField] float deceleration;
+    [SerializeField] float velPower;
+    bool isMoving;
     bool isMovePressed;
-    [SerializeField]float moveSpeed;
+    Vector2 moveDirX;
     Vector2 movementInput;
     bool facingRight = true;
     float secondsTilIdle = 0.15f;
 
+    [Header("Fall")]
+    [SerializeField] float fallGravity;
+    bool isFalling;
+    
+    //GRAVITY Variables
+    float gravity;
+    float groundedGravity;
+    
+
     //JUMP Variables
-    bool isJumpPressed = false;
+    [Header("Jump")]
     [SerializeField] float initialJumpForce;
     [SerializeField] float jumpForce;
     [SerializeField] float jumpTime;
+    bool isJumpPressed = false;
+    bool isJumping;
+    
 
     //GROUNDING Variables
+    [Header("Ground")]
     [SerializeField] LayerMask whatIsGround;
     [SerializeField] bool isGrounded;
     [SerializeField] float groundRayDistance;
     
     //CLIMBING Variables
+    [Header("Climb")]
     [SerializeField] LayerMask ladderLayerMask;
     [SerializeField] float ladderDetectRadius;
-    [SerializeField] string stateName;
+    [SerializeField] float climbForce;
     Vector2 ladderDetectPos;
     bool isLadderPresent = false;
     bool isClimbPressed = false;
-    [SerializeField] float climbForce;
     bool isOnLadder = false;
 
     void Awake() {

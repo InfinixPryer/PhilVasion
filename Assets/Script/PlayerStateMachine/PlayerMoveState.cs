@@ -28,15 +28,19 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void FixedUpdateState()
     {
-        // Debug.Log("MOOOOOOOOOOOVIIIIIIIIIIIIINGGGGGGGGGG");
-
         if(Ctx.MovementInput.x < 0 && Ctx.FacingRight){
             Flip();
         }else if (Ctx.MovementInput.x > 0 && !Ctx.FacingRight){
             Flip();
         }
-        Ctx.Rb.AddForce( new Vector2 ( Ctx.MovementInput.x, 0) * Ctx.MoveSpeed , ForceMode2D.Force);
-        Ctx.Rb.velocity = new Vector2 ( Mathf.Clamp(Ctx.Rb.velocity.x, -Ctx.MoveSpeed, Ctx.MoveSpeed),Ctx.Rb.velocity.y );
+        
+        float targetSpeed = Ctx.MovementInput.x * Ctx.MoveSpeed; // calculate movement direction and speed
+        float speedDif = targetSpeed - Ctx.Rb.velocity.x; //Check if difference of target speed and current speed
+        float accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f ? Ctx.Acceleration : Ctx.Deceleration ); //change between acceleration
+        float movement = Mathf.Pow( Mathf.Abs(speedDif) * accelerationRate, Ctx.VelPower) * Mathf.Sign(speedDif);
+
+        Ctx.Rb.AddForce(movement * Vector2.right);
+        
     }
 
     public override void ExitState(){
